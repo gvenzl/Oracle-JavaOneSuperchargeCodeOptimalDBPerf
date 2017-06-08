@@ -9,11 +9,15 @@ import com.gvenzl.DBUtils;
 
 public class Commit {
 	
-	public static void main(String[] args) throws SQLException, IOException {
+	private static int pause = 5;
+	
+	public static void main(String[] args) throws SQLException, IOException, InterruptedException {
 		
 		int rows = 10000;
 		System.out.println("Test commit with " + rows + " rows...");
 		sqlWithCommitEveryRow(rows);
+		System.out.println("Sleep for " + pause + " seconds.");
+		Thread.sleep(pause*1000);
 		sqlWithCommitAtEnd(rows);
 	}
 		
