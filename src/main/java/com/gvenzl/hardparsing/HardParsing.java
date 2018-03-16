@@ -1,27 +1,27 @@
 package com.gvenzl.hardparsing;
 
+import com.gvenzl.DBUtils;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.gvenzl.DBUtils;
+class HardParsing {
 
-public class HardParsing {
-
-	private static int pause = 5;
+	private static final int pause = 5;
+	private static final int rows = 10000;
 	
 	public static void main(String[] args) throws SQLException, InterruptedException {
-	
-		int rows = 1000;
+
 		System.out.println("Test hard and soft parsing selecting " + rows + " rows...");
 		selectHardParse(rows);
 		System.out.println("Sleep for " + pause + " seconds.");
-		Thread.sleep(pause*1000);
+		Thread.sleep(pause * 1000);
 		selectSoftParse(rows);
 	}
 	
-	public static void selectHardParse(int rows) throws SQLException {
+	private static void selectHardParse(int rows) throws SQLException {
 		DBUtils.resetSharedPool();
 		Connection conn = DBUtils.getConnection();
 		
@@ -41,7 +41,7 @@ public class HardParsing {
 		System.out.println("Elapsed time(ms) for row by row insert: " + (end-start));
 	}
 
-	public static void selectSoftParse(int rows) throws SQLException {
+	private static void selectSoftParse(int rows) throws SQLException {
 		DBUtils.resetSharedPool();
 		Connection conn = DBUtils.getConnection();
 		

@@ -1,27 +1,26 @@
 package com.gvenzl.commit;
 
-import java.io.IOException;
+import com.gvenzl.DBUtils;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import com.gvenzl.DBUtils;
+class Commit {
+	
+	private static final int pause = 5;
+	
+	public static void main(String[] args) throws SQLException, InterruptedException {
 
-public class Commit {
-	
-	private static int pause = 5;
-	
-	public static void main(String[] args) throws SQLException, IOException, InterruptedException {
-		
 		int rows = 10000;
 		System.out.println("Test commit with " + rows + " rows...");
 		sqlWithCommitEveryRow(rows);
 		System.out.println("Sleep for " + pause + " seconds.");
-		Thread.sleep(pause*1000);
+		Thread.sleep(pause * 1000);
 		sqlWithCommitAtEnd(rows);
 	}
 		
-	public static void sqlWithCommitEveryRow(int rows) throws SQLException, IOException {
+	private static void sqlWithCommitEveryRow(int rows) throws SQLException {
 		DBUtils.resetTable();
 		Connection conn = DBUtils.getConnection();
 
@@ -30,7 +29,7 @@ public class Commit {
 		
 		long start = System.currentTimeMillis();
 		
-		for(int i=1;i<=rows;i++) {
+		for(int i = 1; i <= rows; i++) {
 			stmt.setInt(1, i);
 			stmt.setString(2, "This is the row with the value of " + i);
 			stmt.executeUpdate();
@@ -43,7 +42,7 @@ public class Commit {
 		
 	}
 
-	public static void sqlWithCommitAtEnd(int rows) throws SQLException, IOException {
+	private static void sqlWithCommitAtEnd(int rows) throws SQLException {
 		DBUtils.resetTable();
 		Connection conn = DBUtils.getConnection();
 		
@@ -52,7 +51,7 @@ public class Commit {
 		
 		long start = System.currentTimeMillis();
 		
-		for(int i=1;i<=rows;i++) {
+		for(int i = 1; i <= rows; i++) {
 			stmt.setInt(1, i);
 			stmt.setString(2, "This is the row with the value of " + i);
 			stmt.executeUpdate();
