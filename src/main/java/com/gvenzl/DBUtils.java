@@ -1,20 +1,20 @@
 package com.gvenzl;
 
+import oracle.jdbc.pool.OracleDataSource;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
-import oracle.jdbc.pool.OracleDataSource;
 
 public class DBUtils {
 	
 	private static Connection conn;
 	private static Connection sysConn;
 	
-	public static Connection getSysConnection() throws SQLException {
+	private static Connection getSysConnection() throws SQLException {
 		if (null == sysConn || sysConn.isClosed()) {
 			OracleDataSource ods = new OracleDataSource();
-			ods.setURL("jdbc:oracle:thin:sys as sysdba/oracle@//localhost:1521/ORCLCDB");
+			ods.setURL("jdbc:oracle:thin:sys as sysdba/LetsDocker@//localhost:1521/ORCLCDB");
 			sysConn = ods.getConnection();
 			sysConn.setAutoCommit(false);
 		}

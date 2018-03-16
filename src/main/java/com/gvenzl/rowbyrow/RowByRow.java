@@ -1,27 +1,26 @@
 package com.gvenzl.rowbyrow;
 
-import java.io.IOException;
+import com.gvenzl.DBUtils;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import com.gvenzl.DBUtils;
+class RowByRow {
 
-public class RowByRow {
-
-	private static int pause = 5;
+	private static final int pause = 5;
+	private static final int rows = 10000;
 	
-	public static void main(String[] args) throws SQLException, IOException, InterruptedException {
-		
-		int rows = 10000;
+	public static void main(String[] args) throws SQLException, InterruptedException {
+
 		System.out.println("Test set based inserts with " + rows + " rows...");
 		insertRowByRow(rows);
 		System.out.println("Sleep for " + pause + " seconds.");
-		Thread.sleep(pause*1000);
+		Thread.sleep(pause * 1000);
 		insertSetBased(rows);
 	}
 		
-	public static void insertRowByRow(int rows) throws SQLException {
+	private static void insertRowByRow(int rows) throws SQLException {
 		DBUtils.resetTable();
 		Connection conn = DBUtils.getConnection();
 
@@ -30,7 +29,7 @@ public class RowByRow {
 		
 		long start = System.currentTimeMillis();
 		
-		for(int i=1;i<=rows;i++) {
+		for(int i = 1 ; i <= rows; i++) {
 			stmt.setInt(1, i);
 			stmt.setString(2, "This is the row with the value of " + i);
 			stmt.executeUpdate();
@@ -43,7 +42,7 @@ public class RowByRow {
 		
 	}
 
-	public static void insertSetBased(int rows) throws SQLException {
+	private static void insertSetBased(int rows) throws SQLException {
 		DBUtils.resetTable();
 		Connection conn = DBUtils.getConnection();
 		
