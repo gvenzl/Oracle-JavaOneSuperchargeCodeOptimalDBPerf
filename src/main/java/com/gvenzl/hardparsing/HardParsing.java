@@ -9,59 +9,59 @@ import java.sql.SQLException;
 
 class HardParsing {
 
-	private static final int pause = 5;
-	private static final int rows = 10000;
-	
-	public static void main(String[] args) throws SQLException, InterruptedException {
+    private static final int pause = 5;
+    private static final int rows = 10000;
 
-		System.out.println("Test hard and soft parsing selecting " + rows + " rows...");
-		selectHardParse(rows);
-		System.out.println("Sleep for " + pause + " seconds.");
-		Thread.sleep(pause * 1000);
-		selectSoftParse(rows);
-	}
-	
-	private static void selectHardParse(int rows) throws SQLException {
-		DBUtils.resetSharedPool();
-		Connection conn = DBUtils.getConnection();
-		
-		long start = System.currentTimeMillis();
-		
-		for(int i = 1; i <= rows; i++) {
-			PreparedStatement stmt = conn.prepareStatement(
-					"SELECT text FROM TEST WHERE id = " + i);
-			ResultSet rslt = stmt.executeQuery();
-			rslt.next();
-			// Fetch the column value to include fetching time
-			rslt.getString(1);
-			rslt.close();
-			stmt.close();
-		}
-		
-		long end = System.currentTimeMillis();
-		System.out.println("Elapsed time(ms) Hard Parse selects: " + (end-start));
-	}
+    public static void main(String[] args) throws SQLException, InterruptedException {
 
-	private static void selectSoftParse(int rows) throws SQLException {
-		DBUtils.resetSharedPool();
-		Connection conn = DBUtils.getConnection();
-		
-		long start = System.currentTimeMillis();
+        System.out.println("Test hard and soft parsing selecting " + rows + " rows...");
+        selectHardParse(rows);
+        System.out.println("Sleep for " + pause + " seconds.");
+        Thread.sleep(pause * 1000);
+        selectSoftParse(rows);
+    }
 
-		PreparedStatement stmt = conn.prepareStatement(
-				"SELECT text FROM TEST WHERE id = ?");
-		for(int i = 1; i <= rows; i++) {
-			stmt.setInt(1, i);
-			ResultSet rslt = stmt.executeQuery();
-			rslt.next();
-			// Fetch the column value to include fetching time
-			rslt.getString(1);
-			rslt.close();
-		}
-		stmt.close();
+    private static void selectHardParse(int rows) throws SQLException {
+        DBUtils.resetSharedPool();
+        Connection conn = DBUtils.getConnection();
 
-		long end = System.currentTimeMillis();
-		System.out.println("Elapsed time(ms) for soft parse selects: " + (end-start));
-	}
-	
+        long start = System.currentTimeMillis();
+
+        for(int i = 1; i <= rows; i++) {
+            PreparedStatement stmt = conn.prepareStatement(
+                    "SELECT text FROM TEST WHERE id = " + i);
+            ResultSet rslt = stmt.executeQuery();
+            rslt.next();
+            // Fetch the column value to include fetching time
+            rslt.getString(1);
+            rslt.close();
+            stmt.close();
+        }
+
+        long end = System.currentTimeMillis();
+        System.out.println("Elapsed time(ms) Hard Parse selects: " + (end-start));
+    }
+
+    private static void selectSoftParse(int rows) throws SQLException {
+        DBUtils.resetSharedPool();
+        Connection conn = DBUtils.getConnection();
+
+        long start = System.currentTimeMillis();
+
+        PreparedStatement stmt = conn.prepareStatement(
+                "SELECT text FROM TEST WHERE id = ?");
+        for(int i = 1; i <= rows; i++) {
+            stmt.setInt(1, i);
+            ResultSet rslt = stmt.executeQuery();
+            rslt.next();
+            // Fetch the column value to include fetching time
+            rslt.getString(1);
+            rslt.close();
+        }
+        stmt.close();
+
+        long end = System.currentTimeMillis();
+        System.out.println("Elapsed time(ms) for soft parse selects: " + (end-start));
+    }
+
 }
