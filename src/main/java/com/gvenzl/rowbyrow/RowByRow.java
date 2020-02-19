@@ -8,15 +8,14 @@ import java.sql.SQLException;
 
 class RowByRow {
 
-    private static final int pause = 5;
     private static final int rows = 10000;
 
     public static void main(String[] args) throws SQLException, InterruptedException {
 
         System.out.println("Test set based inserts with " + rows + " rows...");
         insertRowByRow(rows);
-        System.out.println("Sleep for " + pause + " seconds.");
-        Thread.sleep(pause * 1000);
+        System.out.println("Sleep for " + DBUtils.getPause() + " seconds.");
+        Thread.sleep(DBUtils.getPause() * 1000);
         insertSetBased(rows);
     }
 

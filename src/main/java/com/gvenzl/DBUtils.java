@@ -10,11 +10,16 @@ public class DBUtils {
 
     private static Connection conn;
     private static Connection sysConn;
+    private static final int pause = 5;
+
+    public static int getPause() {
+        return pause;
+    }
 
     private static Connection getSysConnection() throws SQLException {
         if (null == sysConn || sysConn.isClosed()) {
             OracleDataSource ods = new OracleDataSource();
-            ods.setURL("jdbc:oracle:thin:sys as sysdba/LetsDocker@//localhost:1521/XE");
+            ods.setURL("jdbc:oracle:thin:sys as sysdba/LetsDocker@//localhost:1521/ORCLCDB");
             sysConn = ods.getConnection();
             sysConn.setAutoCommit(false);
         }
@@ -24,7 +29,7 @@ public class DBUtils {
     public static Connection getConnection() throws SQLException {
         if (null == conn || conn.isClosed()) {
             OracleDataSource ods = new OracleDataSource();
-            ods.setURL("jdbc:oracle:thin:test/test@//localhost:1521/XEPDB1");
+            ods.setURL("jdbc:oracle:thin:test/test@//localhost:1521/ORCLPDB1");
             conn = ods.getConnection();
             conn.setAutoCommit(false);
         }

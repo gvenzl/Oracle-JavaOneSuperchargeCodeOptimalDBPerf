@@ -8,15 +8,13 @@ import java.sql.SQLException;
 
 class Commit {
 
-    private static final int pause = 5;
-
     public static void main(String[] args) throws SQLException, InterruptedException {
 
         int rows = 10000;
         System.out.println("Test commit with " + rows + " rows...");
         sqlWithCommitEveryRow(rows);
-        System.out.println("Sleep for " + pause + " seconds.");
-        Thread.sleep(pause * 1000);
+        System.out.println("Sleep for " + DBUtils.getPause() + " seconds.");
+        Thread.sleep(DBUtils.getPause() * 1000);
         sqlWithCommitAtEnd(rows);
     }
 

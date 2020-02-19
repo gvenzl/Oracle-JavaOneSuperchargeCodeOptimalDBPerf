@@ -9,15 +9,14 @@ import java.sql.SQLException;
 
 class HardParsing {
 
-    private static final int pause = 5;
     private static final int rows = 10000;
 
     public static void main(String[] args) throws SQLException, InterruptedException {
 
         System.out.println("Test hard and soft parsing selecting " + rows + " rows...");
         selectHardParse(rows);
-        System.out.println("Sleep for " + pause + " seconds.");
-        Thread.sleep(pause * 1000);
+        System.out.println("Sleep for " + DBUtils.getPause() + " seconds.");
+        Thread.sleep(DBUtils.getPause() * 1000);
         selectSoftParse(rows);
     }
 
