@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class DBUtils {
+public class Utils {
 
     private static Connection conn;
     private static Connection sysConn;
