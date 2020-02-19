@@ -1,6 +1,4 @@
-package com.gvenzl.rowbyrow;
-
-import com.gvenzl.DBUtils;
+package com.gvenzl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,14 +12,14 @@ class RowByRow {
 
         System.out.println("Test set based inserts with " + rows + " rows...");
         insertRowByRow(rows);
-        System.out.println("Sleep for " + DBUtils.getPause() + " seconds.");
-        Thread.sleep(DBUtils.getPause() * 1000);
+        System.out.println("Sleep for " + Utils.getPause() + " seconds.");
+        Thread.sleep(Utils.getPause() * 1000);
         insertSetBased(rows);
     }
 
     private static void insertRowByRow(int rows) throws SQLException {
-        DBUtils.resetTable();
-        Connection conn = DBUtils.getConnection();
+        Utils.resetTable();
+        Connection conn = Utils.getConnection();
 
         PreparedStatement stmt = conn.prepareStatement(
                 "INSERT INTO TEST (id, text, created_tms, last_upd_tms) VALUES (?,?,SYSDATE,SYSDATE)");
@@ -42,8 +40,8 @@ class RowByRow {
     }
 
     private static void insertSetBased(int rows) throws SQLException {
-        DBUtils.resetTable();
-        Connection conn = DBUtils.getConnection();
+        Utils.resetTable();
+        Connection conn = Utils.getConnection();
 
         PreparedStatement stmt = conn.prepareStatement(
                 "INSERT INTO TEST (id, text, created_tms, last_upd_tms) VALUES (?,?,SYSDATE,SYSDATE)");

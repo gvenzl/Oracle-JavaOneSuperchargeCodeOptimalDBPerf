@@ -1,6 +1,4 @@
-package com.gvenzl.commit;
-
-import com.gvenzl.DBUtils;
+package com.gvenzl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,14 +11,14 @@ class Commit {
         int rows = 10000;
         System.out.println("Test commit with " + rows + " rows...");
         sqlWithCommitEveryRow(rows);
-        System.out.println("Sleep for " + DBUtils.getPause() + " seconds.");
-        Thread.sleep(DBUtils.getPause() * 1000);
+        System.out.println("Sleep for " + Utils.getPause() + " seconds.");
+        Thread.sleep(Utils.getPause() * 1000);
         sqlWithCommitAtEnd(rows);
     }
 
     private static void sqlWithCommitEveryRow(int rows) throws SQLException {
-        DBUtils.resetTable();
-        Connection conn = DBUtils.getConnection();
+        Utils.resetTable();
+        Connection conn = Utils.getConnection();
 
         PreparedStatement stmt = conn.prepareStatement(
                 "INSERT INTO TEST (id, text, created_tms, last_upd_tms) " +
@@ -42,8 +40,8 @@ class Commit {
     }
 
     private static void sqlWithCommitAtEnd(int rows) throws SQLException {
-        DBUtils.resetTable();
-        Connection conn = DBUtils.getConnection();
+        Utils.resetTable();
+        Connection conn = Utils.getConnection();
 
         PreparedStatement stmt = conn.prepareStatement(
                 "INSERT INTO TEST (id, text, created_tms, last_upd_tms) " +

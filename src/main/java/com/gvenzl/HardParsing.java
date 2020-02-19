@@ -1,6 +1,4 @@
-package com.gvenzl.hardparsing;
-
-import com.gvenzl.DBUtils;
+package com.gvenzl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,14 +13,14 @@ class HardParsing {
 
         System.out.println("Test hard and soft parsing selecting " + rows + " rows...");
         selectHardParse(rows);
-        System.out.println("Sleep for " + DBUtils.getPause() + " seconds.");
-        Thread.sleep(DBUtils.getPause() * 1000);
+        System.out.println("Sleep for " + Utils.getPause() + " seconds.");
+        Thread.sleep(Utils.getPause() * 1000);
         selectSoftParse(rows);
     }
 
     private static void selectHardParse(int rows) throws SQLException {
-        DBUtils.resetSharedPool();
-        Connection conn = DBUtils.getConnection();
+        Utils.resetSharedPool();
+        Connection conn = Utils.getConnection();
 
         long start = System.currentTimeMillis();
 
@@ -42,8 +40,8 @@ class HardParsing {
     }
 
     private static void selectSoftParse(int rows) throws SQLException {
-        DBUtils.resetSharedPool();
-        Connection conn = DBUtils.getConnection();
+        Utils.resetSharedPool();
+        Connection conn = Utils.getConnection();
 
         long start = System.currentTimeMillis();
 
