@@ -10,7 +10,7 @@ public class Utils {
 
     private static Connection conn;
     private static Connection sysConn;
-    private static final int pause = 5;
+    private static final int pause = 10;
 
     public static int getPause() {
         return pause;
