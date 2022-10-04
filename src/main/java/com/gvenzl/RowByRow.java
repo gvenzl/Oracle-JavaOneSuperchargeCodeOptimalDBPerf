@@ -10,10 +10,11 @@ class RowByRow {
 
     public static void main(String[] args) throws SQLException, InterruptedException {
 
-        System.out.println("Test set based inserts with " + rows + " rows...");
+        System.out.println("Test INSERTs with " + rows + " rows row by row...");
         insertRowByRow(rows);
         System.out.println("Sleep for " + Utils.getPause() + " seconds.");
-        Thread.sleep(Utils.getPause() * 1000);
+        Thread.sleep(Utils.getPause() * 1000L);
+        System.out.println("Test INSERTs with " + rows + " rows set-based...");
         insertSetBased(rows);
     }
 
@@ -48,7 +49,7 @@ class RowByRow {
 
         long start = System.currentTimeMillis();
 
-        for(int i=1;i<=rows;i++) {
+        for(int i = 1; i <= rows; i++) {
             stmt.setInt(1, i);
             stmt.setString(2, "This is the row with the value of " + i);
             stmt.addBatch();

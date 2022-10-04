@@ -9,10 +9,11 @@ class Commit {
     public static void main(String[] args) throws SQLException, InterruptedException {
 
         int rows = 10000;
-        System.out.println("Test commit with " + rows + " rows...");
+        System.out.println("Test with " + rows + " rows commit after every row...");
         sqlWithCommitEveryRow(rows);
         System.out.println("Sleep for " + Utils.getPause() + " seconds.");
-        Thread.sleep(Utils.getPause() * 1000);
+        Thread.sleep(Utils.getPause() * 1000L);
+        System.out.println("Test with " + rows + " rows commit at the end...");
         sqlWithCommitAtEnd(rows);
     }
 

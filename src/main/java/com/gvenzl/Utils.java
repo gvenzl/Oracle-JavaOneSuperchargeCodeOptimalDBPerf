@@ -19,7 +19,7 @@ public class Utils {
     private static Connection getSystemConnection() throws SQLException {
         if (null == sysConn || sysConn.isClosed()) {
             OracleDataSource ods = new OracleDataSource();
-            ods.setURL("jdbc:oracle:thin:system/LetsDocker1@//localhost:1521/ORCLCDB");
+            ods.setURL("jdbc:oracle:thin:system/oracle@//localhost:1521/CDB213");
             sysConn = ods.getConnection();
             sysConn.setAutoCommit(false);
         }
